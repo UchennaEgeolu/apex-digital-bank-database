@@ -1,0 +1,42 @@
+services:
+  mysql-primary:
+    image: mysql:8.0
+    container_name: apex-mysql-primary
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PRIMARY_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "127.0.0.1:3307:3306"
+    command:
+      - --server-id=1
+      - --log-bin=mysql-bin
+      - --binlog-format=ROW
+      - --gtid-mode=ON
+      - --enforce-gtid-consistency=ON
+    volumes:
+      - primary_data:/var/lib/mysql
+
+  mysql-replica:
+    image: mysql:8.0
+    container_name: apex-mysql-replica
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_REPLICA_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:3308:3306"
+    command:
+      - --server-id=2
+      - --relay-log=relay-bin
+      - --log-bin=mysql-bin
+      - --gtid-mode=ON
+      - --enforce-gtid-consistency=ON
+      - --read-only=ON
+      - --super-read-only=ON
+     
+    volumes:
+      - replica_data:/var/lib/mysql
+
+volumes:
+  primary_data:
+  replica_data:

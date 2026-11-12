@@ -2,6 +2,7 @@
 
 **Course:** MIT 8103 — Advanced Database Systems  
 **Institution:** MIVA Open University  
+**Student:** Uchenna Egeolu - u.egeolu24120@miva.edu.ng 
 **Academic Session:** 2026/2027  
 **Project Type:** Individual Continuous Assessment Portfolio  
 **Database Technologies:** MySQL 8, MongoDB 8, Docker and MySQL Workbench
